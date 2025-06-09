@@ -1,0 +1,2 @@
+APP_URL=None
+MAP_SERVICE_API_KEY=<api_key>

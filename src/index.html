@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Suarai</title>
+
+    <link rel="shortcut icon" href="./icons/framer.svg" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+  </head>
+
+  <body>
+    <header>
+      <div class="main-header container">
+        <h1 class="brand-name">
+          <a href="#/">Suarai Story</a>
+        </h1>
+        <a href="#main-content" class="skip-to-content">Skip to main content</a>
+
+        <nav
+          id="navigation-drawer"
+          class="navigation-drawer"
+          aria-label="Navigasi utama"
+          role="navigation"
+        >
+          <ul id="nav-list" class="nav-list">
+            <li><a href="#/about" tabindex="0">Tentang</a></li>
+            <li><a href="#/" tabindex="0">Daftar Cerita</a></li>
+            <li><a href="#/keep" id="nav-keep" tabindex="0">Cerita Tersimpan</a></li>
+            <li><a href="#/add" tabindex="0">Tambah Cerita</a></li>
+            <li id="nav-login"><a href="#/login" tabindex="0">Masuk</a></li>
+            <li id="nav-register"><a href="#/register" tabindex="0">Daftar</a></li>
+            <li id="nav-logout" class="hidden"><a href="#" tabindex="0">Keluar</a></li>
+          </ul>
+        </nav>
+
+        <button
+          id="drawer-button"
+          class="drawer-button"
+          aria-label="Buka menu navigasi"
+          aria-expanded="false"
+          aria-controls="navigation-drawer"
+        >
+          ☰
+        </button>
+      </div>
+    </header>
+
+    <main id="main-content" class="main-content"></main>
+
+    <footer class="about-footer">
+      <p>Suarai &copy; 2025 | Dibuat oleh Khoerunnisa</p>
+      <p class="about-note">Version 1.0 — Powered by Assemble Corp.</p>
+    </footer>
+
+    <script type="module" src="/scripts/index.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  </body>
+</html>
