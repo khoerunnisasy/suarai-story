@@ -9,10 +9,10 @@ export default class RegisterPresenter {
   async handleRegister({ name, email, password }) {
     try {
       await registerUser(name, email, password);
-      this.view.showMessage("Pendaftaran berhasil! Silakan login.");
+      this.view.showToast("Pendaftaran berhasil! Silakan login.");
       this.view.redirectToLogin();
     } catch (error) {
-      this.view.showMessage(error.message, true);
+      this.view.showToast(error.message, true);
     }
   }
 }

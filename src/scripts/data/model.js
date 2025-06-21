@@ -2,11 +2,13 @@ import { getAllStories, postStory, getStoryById } from "./api";
 
 const StoryModel = {
   async fetchAll() {
-    return await getAllStories();
+    const response = await getAllStories();
+    return response.listStory || [];
   },
 
   async fetchStoryById(id) {
-    return await getStoryById(id);
+    const response = await getStoryById(id);
+    return response.story || {}; // ✅ ini perbaikan pentingnya
   },
 
   async submitStory(data) {

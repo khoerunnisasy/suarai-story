@@ -33,17 +33,17 @@ export default class AddPresenter {
     const { description, location, photoBlob } = this._view.getFormData();
 
     if (!photoBlob) {
-      this._view.showMessage("Silakan ambil atau unggah foto terlebih dahulu.");
+      this._view.showToast("Silakan ambil atau unggah foto terlebih dahulu.");
       return;
     }
 
     if (photoBlob.size > 1024 * 1024) {
-      this._view.showMessage("Ukuran foto maksimal 1MB.");
+      this._view.showToast("Ukuran foto maksimal 1MB.");
       return;
     }
 
     if (!this._pickedCoords) {
-      this._view.showMessage("Silakan pilih lokasi terlebih dahulu.");
+      this._view.showToast("Silakan pilih lokasi terlebih dahulu.");
       return;
     }
 
@@ -55,10 +55,10 @@ export default class AddPresenter {
         lon: this._pickedCoords.lon,
       });
 
-      this._view.showMessage("Cerita berhasil ditambahkan!");
+      this._view.showToast("Cerita berhasil ditambahkan!");
       this._view.redirectToHome();
     } catch (error) {
-      this._view.showMessage(`Gagal menambahkan cerita: ${error.message}`);
+      this._view.showToast(`Gagal menambahkan cerita: ${error.message}`);
     }
   }
 }

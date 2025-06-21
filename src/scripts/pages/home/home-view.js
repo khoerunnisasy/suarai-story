@@ -44,7 +44,6 @@ const HomeView = {
 
     container.innerHTML = storyItems;
 
-    // 💡 Buat seluruh card bisa diklik ke detail
     container.querySelectorAll(".story-card").forEach((card) => {
       card.addEventListener("click", () => {
         const id = card.getAttribute("data-id");
@@ -55,7 +54,7 @@ const HomeView = {
 
   showError(message) {
     const container = document.getElementById("story-list");
-    container.innerHTML = `<p class="error">Gagal memuat cerita: ${message}</p>`;
+    container.innerHTML = `<p class="error">${message}</p>`;
   },
 
   afterRenderMap(stories) {

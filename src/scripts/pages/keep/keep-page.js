@@ -1,4 +1,3 @@
-// keep-page.js
 import KeepView from "./keep-view";
 import KeepPresenter from "./keep-presenter";
 

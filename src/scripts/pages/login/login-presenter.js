@@ -9,10 +9,11 @@ export default class LoginPresenter {
   async handleLogin({ email, password }) {
     try {
       const result = await AuthModel.login(email, password);
-      this.view.showMessage("Login berhasil!");
-      this.view.navigateToHome(); // 🔁 Ganti dari window.location.hash
+      localStorage.setItem("token", result.loginResult.token);
+      this.view.showToast("Login berhasil!");
+      this.view.navigateToHome();
     } catch (error) {
-      this.view.showMessage(error.message, true);
+      this.view.showToast(error.message, true);
     }
   }
 }

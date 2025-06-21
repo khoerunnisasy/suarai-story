@@ -11,14 +11,14 @@ class HomePresenter {
       const stories = await this._model.fetchAll();
 
       if (!stories.length) {
-        this._view.showError("Belum ada cerita tersedia.");
+        this._view.showError("Silakan masuk atau daftar terlebih dahulu.");
         return;
       }
 
       this._view.renderStories(stories);
       this._view.afterRenderMap(stories);
     } catch (error) {
-      this._view.showError(`Gagal memuat cerita: ${error.message}`);
+      this._view.showError(`${error.message}`);
     }
   }
 }

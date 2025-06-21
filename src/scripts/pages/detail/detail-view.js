@@ -1,4 +1,5 @@
 import { createMap, addMarker } from "../../utils/map";
+import { showToast } from "../../utils/toast";
 
 export default class DetailView {
   getTemplate() {
@@ -26,12 +27,12 @@ export default class DetailView {
         <div class="detail-story action-buttons">
           <button id="keepButton" class="action-btn" aria-label="Simpan cerita">
             <span id="keepText">Simpan cerita</span>
-            <img id="keepIcon" src="/icons/keep-icon.svg" alt="Simpan Cerita" />
+            <img id="keepIcon" src="/icons/keep-icon.png" alt="Simpan Cerita" />
           </button>
 
           <button id="notifyButton" class="action-btn" aria-label="Aktifkan notifikasi">
             <span id="notifyText">Nyalakan Notifikasi</span>
-            <img id="notifyIcon" src="/icons/bell-icon.svg" alt="Notifikasi" />
+            <img id="notifyIcon" src="/icons/bell-icon.png" alt="Notifikasi" />
           </button>
         </div>
       </article>
@@ -39,27 +40,29 @@ export default class DetailView {
   }
 
   renderStoryDetail(story) {
-    document.getElementById("detail-photo").src = story.photoUrl;
-    document.getElementById("detail-name").textContent = story.name;
-    document.getElementById("detail-desc").textContent = story.description;
-    document.getElementById("detail-date").textContent = `Waktu : ${new Date(story.createdAt).toLocaleDateString()}`;
+    const data = story.story || story; // pastikan ambil dari response.story
 
-    if (story.lat && story.lon) {
+    document.getElementById("detail-photo").src = data.photoUrl;
+    document.getElementById("detail-name").textContent = data.name || "-";
+    document.getElementById("detail-desc").textContent = data.description || "-";
+    document.getElementById("detail-date").textContent = `Waktu : ${new Date(data.createdAt).toLocaleDateString()}`;
+
+    if (data.lat && data.lon) {
       const map = createMap({
-        lat: story.lat,
-        lng: story.lon,
+        lat: data.lat,
+        lng: data.lon,
         elementId: "map",
         zoom: 13,
       });
 
       addMarker(map, {
-        lat: story.lat,
-        lng: story.lon,
-        popupText: story.description,
+        lat: data.lat,
+        lng: data.lon,
+        popupText: data.description,
       });
     }
 
-    const isKept = JSON.parse(localStorage.getItem("keptStories") || "[]").includes(story.id);
+    const isKept = JSON.parse(localStorage.getItem("keptStories") || "[]").includes(data.id);
     this.setKeepButtonState(isKept);
   }
 
@@ -67,25 +70,29 @@ export default class DetailView {
     const icon = document.getElementById("keepIcon");
     const text = document.getElementById("keepText");
 
-    icon.src = isSaved ? "/icons/keep-filled.svg" : "/icons/keep-icon.svg";
+    icon.src = isSaved ? "/icons/keep-filled.png" : "/icons/keep-icon.png";
     icon.alt = isSaved ? "Hapus dari simpanan" : "Simpan cerita";
     text.textContent = isSaved ? "Disimpan" : "Simpan cerita";
+  }
+
+  setNotifyButtonState(isSubscribed) {
+    const icon = document.getElementById("notifyIcon");
+    const text = document.getElementById("notifyText");
+
+    icon.src = isSubscribed ? "/icons/bell-filled.png" : "/icons/bell-icon.png";
+    icon.alt = isSubscribed ? "Berhenti Berlangganan" : "Aktifkan Notifikasi";
+    text.textContent = isSubscribed ? "Subscribed" : "Subscribe";
   }
 
   bindKeepButtonClick(handler) {
     document.getElementById("keepButton").addEventListener("click", handler);
   }
-  
-  setNotifyButtonState(isSubscribed) {
-    const icon = document.getElementById("notifyIcon");
-    const text = document.getElementById("notifyText");
-
-    icon.src = isSubscribed ? "/icons/bell-filled.svg" : "/icons/bell-icon.svg";
-    icon.alt = isSubscribed ? "Berhenti Berlangganan" : "Aktifkan Notifikasi";
-    text.textContent = isSubscribed ? "Subscribed" : "Try Notify Me";
-  }
 
   bindNotifyButtonClick(handler) {
-  document.getElementById("notifyButton").addEventListener("click", handler);
+    document.getElementById("notifyButton").addEventListener("click", handler);
+  }
+
+  showToast(message, isError = false) {
+    showToast(message, isError ? 4000 : 3000);
   }
 }

@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   window.addEventListener("hashchange", async () => {
     if (app._currentPage?.destroy instanceof Function) {
-      app._currentPage.destroy(); // ✅ Matikan kamera sebelum render
+      app._currentPage.destroy();
     }
     await app.renderPage();
   });

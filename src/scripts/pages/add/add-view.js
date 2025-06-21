@@ -68,14 +68,7 @@ export default class AddView {
   }
 
   bindCapturePhoto(handler) {
-    document.querySelector("#captureBtn").addEventListener("click", async () => {
-      const blob = await this.capturePhoto();
-      this.setPhoto(blob);
-      this.stopCamera();
-      document.querySelector("#camera").style.display = "none";
-      document.querySelector("#retakeBtn").style.display = "inline-block";
-    });
-
+    document.querySelector("#captureBtn").addEventListener("click", handler);
     document.querySelector("#retakeBtn").addEventListener("click", async () => {
       await this.initCamera();
       document.querySelector("#camera").style.display = "block";
@@ -118,8 +111,18 @@ export default class AddView {
     };
   }
 
-  showMessage(message) {
-    alert(message); // dipindah ke View sesuai arahan reviewer
+  showToast(message, isError = false) {
+    const toast = document.createElement("div");
+    toast.className = `toast toast--top ${isError ? "toast--error" : "toast--success"}`;
+    toast.textContent = message;
+
+    document.body.appendChild(toast);
+    requestAnimationFrame(() => toast.classList.add("visible"));
+
+    setTimeout(() => {
+      toast.classList.remove("visible");
+      setTimeout(() => toast.remove(), 300);
+    }, 3000);
   }
 
   redirectToHome() {

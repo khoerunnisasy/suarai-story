@@ -1,4 +1,3 @@
-// scripts/pages/login/login-view.js
 export default class LoginView {
   constructor() {
     this.form = null;
@@ -33,20 +32,27 @@ export default class LoginView {
 
   bindEvents() {
     this.form = document.getElementById("loginForm");
-    this.messageBox = document.getElementById("loginMessage");
-
     this.form.addEventListener("submit", (event) => {
       event.preventDefault();
       const email = this.form.querySelector("#email").value;
       const password = this.form.querySelector("#password").value;
-
       this.presenter.handleLogin({ email, password });
     });
   }
 
-  showMessage(message, isError = false) {
-    this.messageBox.textContent = message;
-    this.messageBox.style.color = isError ? "red" : "green";
+  showToast(message, isError = false) {
+    const toast = document.createElement("div");
+    toast.className = `toast toast--top ${isError ? "toast--error" : "toast--success"}`;
+    toast.textContent = message;
+
+    document.body.appendChild(toast);
+
+    setTimeout(() => toast.classList.add("visible"), 10);
+
+    setTimeout(() => {
+      toast.classList.remove("visible");
+      toast.addEventListener("transitionend", () => toast.remove());
+    }, 3000);
   }
 
   navigateToHome() {

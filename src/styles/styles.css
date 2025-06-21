@@ -508,6 +508,11 @@ textarea {
   }
 }
 
+.story-card header {
+  view-transition-name: none;
+}
+
+
 @media screen and (width < 1000px) {
   .navigation-drawer {
     width: 150px;
@@ -540,4 +545,35 @@ textarea {
   .drawer-button {
     display: none;
   }
+}
+
+.toast {
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #27548a;
+  color: black;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  opacity: 0;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  z-index: 9999;
+}
+
+.toast--top {
+  top: 20px;
+}
+
+.toast--success {
+  background-color: #ffff;
+}
+
+.toast--error {
+  background-color: #ffff;
+}
+
+.toast.visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(10px);
 }

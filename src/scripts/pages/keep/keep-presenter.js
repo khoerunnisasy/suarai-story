@@ -1,4 +1,3 @@
-// keep-presenter.js
 import StoryModel from "../../data/model";
 
 export default class KeepPresenter {
